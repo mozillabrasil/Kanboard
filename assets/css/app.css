@@ -63,15 +63,12 @@ body {
     color: #333;
     border: 1px solid #ccc;
     background: #efefef;
-    padding: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 5px 0;
     font-size: 0.9em;
     cursor: pointer;
     border-radius: 2px;
     width: 100%;
     text-align: center;
-    margin-left: -15px;
 }
 
 a.logo span, a.logo span:hover, a.logo span:active, a.logo span:focus{
@@ -422,9 +419,23 @@ input.form-input-large {
 }
 
 .form-login {
-    width: 350px;
+    width: 300px;
     margin: 0 auto;
     margin-top: 8%;
+    text-align: center;
+}
+
+.form-login .btn {
+	padding: 5px 0 !important;
+}
+
+.form-login input[type="number"],
+.form-login input[type="date"],
+.form-login input[type="email"],
+.form-login input[type="password"],
+.form-login input[type="text"] {
+	max-width: 100% !important;
+	padding: 5px 0;
 }
 
 .form-column li,
