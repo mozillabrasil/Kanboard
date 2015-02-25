@@ -1,4 +1,4 @@
-Kanboard
+Kanboard [![Build Status](https://travis-ci.org/mozillabrasil/kanboard.svg?branch=master)](https://travis-ci.org/mozillabrasil/kanboard)
 ==========
 [kanboard.mozillabrasil.org.br](http://kanboard.mozillabrasil.org.br) source code.
 
