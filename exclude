@@ -1,0 +1,9 @@
+composer.json
+composer.lock
+.git
+.gitignore
+LICENSE
+README.md
+.scrutinizer.yml
+tests
+.travis.yml
