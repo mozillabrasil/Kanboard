@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic);
+
 /* reset */
 li,
 ul,
@@ -19,11 +21,53 @@ body {
     margin-right: 10px;
     padding-bottom: 20px;
     color: #333;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     -webkit-text-size-adjust: 100%;
+    background-color: #f2f0e9;
+    background-image: url("/assets/img/bg-gradient-sand.png"),url("/assets/img/bg-sand.png");
+    background-repeat: repeat-x,repeat;
+}
+
+.form-login .form-actions .btn {
+    width: 100%;
+}
+
+.form-login .form-actions {
+    margin-top:0;
+}
+
+.form-login form+p a{
+    text-decoration: none;
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-block;
+    color: #333;
+    border: 1px solid #ccc;
+    background: #efefef;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 0.9em;
+    cursor: pointer;
+    border-radius: 2px;
+    width: 100%;
+    text-align: center;
+    margin-left: -15px;
+}
+
+a.logo span, a.logo span:hover, a.logo span:active, a.logo span:focus{
+    color:transparent !important;
+}
+
+.form-login form input[type="text"], .form-login form input[type="password"] {
+    width: 100%;
+}
+
+.form-login .form-required {
+    display: none;
 }
 
 ul.no-bullet li {

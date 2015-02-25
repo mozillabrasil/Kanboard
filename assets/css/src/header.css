@@ -1,4 +1,14 @@
 /* header */
+
+a.logo {
+    background:url('/assets/img/logo_black.png');
+    color:transparent;
+    opacity: 1;
+    padding-left:85px;
+    margin-right: 10px;
+    border-right:1px dashed #fff;
+}
+
 header {
     margin-top: 10px;
     padding-bottom: 15px;
@@ -84,7 +94,7 @@ nav .active a {
 }
 
 .page-header ul {
-    text-align: left;
+    text-align: center;
     margin-top: 5px;
 }
 
@@ -92,6 +102,21 @@ nav .active a {
     display: inline;
     padding-right: 10px;
     font-size: 0.9em;
+}
+
+.page-header {
+    background: #fff;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    padding-top: 5px;
+}
+
+.page-header ul li a {
+    text-decoration: none;
+}
+
+.page-header ul li a:hover, .page-header ul li a:active, .page-header ul li a:hover {
+    text-decoration: underline;
 }
 
 @media only screen and (max-width: 640px) {

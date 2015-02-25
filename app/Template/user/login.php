@@ -4,6 +4,8 @@
         <p class="alert alert-error"><?= $this->e($errors['login']) ?></p>
     <?php endif ?>
 
+    <img src="/assets/img/logo.png" class="mozlogo">
+
     <form method="post" action="<?= $this->u('user', 'check', array('redirect_query' => urlencode($redirect_query))) ?>">
 
         <?= $this->formCsrf() ?>
@@ -28,5 +30,7 @@
             <input type="submit" value="<?= t('Sign in') ?>" class="btn btn-blue"/>
         </div>
     </form>
+
+    <p><a href="/register">Registrar</a></p>
 
 </div>
