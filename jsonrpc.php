@@ -22,13 +22,16 @@ $server->bind('enableProjectPublicAccess', $container['project'], 'enablePublicA
 $server->bind('disableProjectPublicAccess', $container['project'], 'disablePublicAccess');
 $server->bind('getProjectActivity', $container['projectActivity'], 'getProjects');
 
-$server->register('createProject', function($name) use ($container) {
-    $values = array('name' => $name);
+$server->register('createProject', function($name, $description = null) use ($container) {
+    $values = array(
+        'name' => $name,
+        'description' => $description
+    );
     list($valid,) = $container['project']->validateCreation($values);
     return $valid ? $container['project']->create($values) : false;
 });
 
-$server->register('updateProject', function($id, $name, $is_active = null, $is_public = null, $token = null) use ($container) {
+$server->register('updateProject', function($id, $name, $is_active = null, $is_public = null, $token = null, $description = null) use ($container) {
 
     $values = array(
         'id' => $id,
@@ -36,6 +39,7 @@ $server->register('updateProject', function($id, $name, $is_active = null, $is_p
         'is_active' => $is_active,
         'is_public' => $is_public,
         'token' => $token,
+        'description' => $description
     );
 
     foreach ($values as $key => $value) {
@@ -59,6 +63,18 @@ $server->bind('moveColumnDown', $container['board'], 'moveDown');
 $server->bind('updateColumn', $container['board'], 'updateColumn');
 $server->bind('addColumn', $container['board'], 'addColumn');
 $server->bind('removeColumn', $container['board'], 'removeColumn');
+
+/**
+ * Swimlane procedures
+ */
+$server->bind('getSwimlanes', $container['swimlane'], 'getSwimlanes');
+$server->bind('addSwimlane', $container['swimlane'], 'create');
+$server->bind('updateSwimlane', $container['swimlane'], 'rename');
+$server->bind('removeSwimlane', $container['swimlane'], 'remove');
+$server->bind('disableSwimlane', $container['swimlane'], 'disable');
+$server->bind('enableSwimlane', $container['swimlane'], 'enable');
+$server->bind('moveSwimlaneUp', $container['swimlane'], 'moveUp');
+$server->bind('moveSwimlaneDown', $container['swimlane'], 'moveDown');
 
 /**
  * Project permissions procedures
