@@ -31,6 +31,4 @@
         </div>
     </form>
 
-    <p><a href="/register">Registrar</a></p>
-
 </div>
