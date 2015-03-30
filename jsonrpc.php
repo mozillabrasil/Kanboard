@@ -68,6 +68,8 @@ $server->bind('removeColumn', $container['board'], 'removeColumn');
  * Swimlane procedures
  */
 $server->bind('getSwimlanes', $container['swimlane'], 'getSwimlanes');
+$server->bind('getAllSwimlanes', $container['swimlane'], 'getAll');
+$server->bind('getSwimlane', $container['swimlane'], 'getByName');
 $server->bind('addSwimlane', $container['swimlane'], 'create');
 $server->bind('updateSwimlane', $container['swimlane'], 'rename');
 $server->bind('removeSwimlane', $container['swimlane'], 'remove');
@@ -75,6 +77,77 @@ $server->bind('disableSwimlane', $container['swimlane'], 'disable');
 $server->bind('enableSwimlane', $container['swimlane'], 'enable');
 $server->bind('moveSwimlaneUp', $container['swimlane'], 'moveUp');
 $server->bind('moveSwimlaneDown', $container['swimlane'], 'moveDown');
+
+/**
+ * Actions procedures
+ */
+$server->bind('getAvailableActions', $container['action'], 'getAvailableActions');
+$server->bind('getAvailableEvents', $container['action'], 'getAvailableEvents');
+$server->bind('getCompatibleEvents', $container['action'], 'getCompatibleEvents');
+$server->bind('removeAction', $container['action'], 'remove');
+
+$server->register('getActions', function($project_id) use ($container) {
+    $actions = $container['action']->getAllByProject($project_id);
+
+    foreach ($actions as $index => $action) {
+        $params = array();
+
+        foreach($action['params'] as $param) {
+            $params[$param['name']] = $param['value'];
+        }
+
+        $actions[$index]['params'] = $params;
+    }
+
+    return $actions;
+});
+
+$server->register('createAction', function($project_id, $event_name, $action_name, $params) use ($container) {
+
+    $values = array(
+        'project_id' => $project_id,
+        'event_name' => $event_name,
+        'action_name' => $action_name,
+        'params' => $params,
+    );
+
+    list($valid,) = $container['action']->validateCreation($values);
+
+    if (! $valid) {
+        return false;
+    }
+
+    // Check the action exists
+    if (! isset($container['action']->getAvailableActions()[$action_name])) {
+        return false;
+    }
+
+    // Check the event
+    $action = $container['action']->load($action_name, $project_id, $event_name);
+
+    if (! in_array($event_name, $action->getCompatibleEvents())) {
+        return false;
+    }
+
+    $required_params = $action->getActionRequiredParameters();
+
+    // Check missing parameters
+    foreach($required_params as $param => $value) {
+        if (! isset($params[$param])) {
+            return false;
+        }
+    }
+
+    // Check extra parameters
+    foreach($params as $param => $value) {
+        if (! isset($required_params[$param])) {
+            return false;
+        }
+    }
+
+    return $container['action']->create($values);
+});
+
 
 /**
  * Project permissions procedures
@@ -345,6 +418,10 @@ $server->register('updateSubtask', function($id, $task_id, $title = null, $user_
  */
 $server->register('getTimezone', function() use ($container) {
     return $container['config']->get('application_timezone');
+});
+
+$server->register('getVersion', function() use ($container) {
+    return APP_VERSION;
 });
 
 /**

@@ -21,6 +21,7 @@ defined('DB_USERNAME') or define('DB_USERNAME', 'root');
 defined('DB_PASSWORD') or define('DB_PASSWORD', '');
 defined('DB_HOSTNAME') or define('DB_HOSTNAME', 'localhost');
 defined('DB_NAME') or define('DB_NAME', 'kanboard');
+defined('DB_PORT') or define('DB_PORT', null);
 
 // LDAP configuration
 defined('LDAP_AUTH') or define('LDAP_AUTH', false);
@@ -66,6 +67,9 @@ defined('MAIL_SENDMAIL_COMMAND') or define('MAIL_SENDMAIL_COMMAND', '/usr/sbin/s
 
 // Enable or disable "Strict-Transport-Security" HTTP header
 defined('ENABLE_HSTS') or define('ENABLE_HSTS', true);
+
+// Enable or disable "X-Frame-Options: DENY" HTTP header
+defined('ENABLE_XFRAME') or define('ENABLE_XFRAME', true);
 
 // Default files directory
 defined('FILES_DIR') or define('FILES_DIR', 'data/files/');

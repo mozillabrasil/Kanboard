@@ -677,4 +677,97 @@ class Helper
             array('task_id' => $subtask['task_id'], 'subtask_id' => $subtask['id'], 'redirect' => $redirect)
         );
     }
+
+    /**
+     * Get all hours for day
+     *
+     * @access public
+     * @return array
+     */
+    public function getDayHours()
+    {
+        $values = array();
+
+        foreach (range(0, 23) as $hour) {
+            foreach (array(0, 30) as $minute) {
+                $time = sprintf('%02d:%02d', $hour, $minute);
+                $values[$time] = $time;
+            }
+        }
+
+        return $values;
+    }
+
+    /**
+     * Get all days of a week
+     *
+     * @access public
+     * @return array
+     */
+    public function getWeekDays()
+    {
+        $values = array();
+
+        foreach (range(1, 7) as $day) {
+            $values[$day] = $this->getWeekDay($day);
+        }
+
+        return $values;
+    }
+
+    /**
+     * Get the localized day name from the day number
+     *
+     * @access public
+     * @param  integer   $day  Day number
+     * @return string
+     */
+    public function getWeekDay($day)
+    {
+        return dt('%A', strtotime('next Monday +'.($day - 1).' days'));
+    }
+
+    /**
+     * Get file icon
+     *
+     * @access public
+     * @param  string   $filename   Filename
+     * @return string               Font-Awesome-Icon-Name
+     */
+    public function getFileIcon($filename){
+
+        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+        switch ($extension) {
+            case 'jpeg':
+            case 'jpg':
+            case 'png':
+            case 'gif':
+                return 'fa-file-image-o';
+            case 'xls':
+            case 'xlsx':
+                return 'fa-file-excel-o';
+            case 'doc':
+            case 'docx':
+                return 'fa-file-word-o';
+            case 'ppt':
+            case 'pptx':
+                return 'fa-file-powerpoint-o';
+            case 'zip':
+            case 'rar':
+                return 'fa-archive-o';
+            case 'mp3':
+                return 'fa-audio-o';
+            case 'avi':
+                return 'fa-video-o';
+            case 'php':
+            case 'html':
+            case 'css':
+                return 'fa-code-o';
+            case 'pdf':
+                return 'fa-file-pdf-o';
+        }
+
+        return 'fa-file-o';
+    }
 }
